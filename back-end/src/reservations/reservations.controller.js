@@ -58,7 +58,7 @@ function isValidReservation(req, res, next) {
     if (field === "people" && typeof reservation[field] !== "number") {
       return next({
         status: 400,
-        message: `${reservation[field]} is not a number type for people field.`,
+        message: `${field} must be a number.`,
       });
     }
 
@@ -132,7 +132,7 @@ async function list(req, res, next) {
   });
 }
 
-async function read(req, res) {
+function read(req, res) {
   const reservation = res.locals.reservation;
   res.json({ data: reservation });
 }
@@ -146,7 +146,7 @@ async function create(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
+  read: [asyncErrorBoundary(reservationExists), read],
   create: [
     asyncErrorBoundary(isValidReservation),
     isNotTuesday,

@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import "./Reservation.css";
 
 export default function ReservationForm({
   initialformData,
@@ -91,15 +92,15 @@ export default function ReservationForm({
           />
         </fieldset>
         <div className="d-flex justify-content-center pt-2">
-          <button type="submit" className="btn btn-primary mr-1">
-            Submit
-          </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-danger mr-2"
             onClick={handleCancel}
           >
-            Cancel
+            <i class="bi bi-x"></i>Cancel
+          </button>
+          <button type="submit" className="btn btn-primary mr-3">
+            Reserve<i class="bi bi-check"></i>
           </button>
         </div>
       </form>
