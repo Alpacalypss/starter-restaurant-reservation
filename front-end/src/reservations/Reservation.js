@@ -46,13 +46,13 @@ export default function Reservations() {
   };
 
   return (
-    <>
+    <div className="container">
       <ErrorAlert error={reservationsError} />
       <ReservationForm
         initialformData={formData}
         handleFormChange={handleFormChange}
         handleSubmit={handleSubmit}
       />
-    </>
+    </div>
   );
 }

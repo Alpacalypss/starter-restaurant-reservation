@@ -10,7 +10,7 @@ function TableCancel() {
   return (
     <>
       <button className="btn btn-danger" onClick={handleCancel}>
-        <i class="bi bi-x"></i>Cancel
+        <i class="oi oi-ban mr-2"></i>Cancel
       </button>
     </>
   );

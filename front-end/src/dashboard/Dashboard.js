@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { previous, next } from "../utils/date-time";
 import { useHistory } from "react-router";
 import "./Dashboard.css";
+import ReservationFormat from "../reservations/ReservationFormat";
+import TableFormat from "../tables/TableFormat";
 
 /**
  * Defines the dashboard page.
@@ -13,17 +15,20 @@ import "./Dashboard.css";
  */
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
-  const [reservationsError, setReservationsError] = useState(null);
+  const [errors, setErrors] = useState(null);
+  const [tables, setTables] = useState([]);
   const history = useHistory();
 
   useEffect(loadDashboard, [date]);
 
   function loadDashboard() {
     const abortController = new AbortController();
-    setReservationsError(null);
+    setErrors(null);
     listReservations({ date }, abortController.signal)
       .then(setReservations)
-      .catch(setReservationsError);
+      .then(listTables)
+      .then(setTables)
+      .catch(setErrors);
     return () => abortController.abort();
   }
 
@@ -44,22 +49,27 @@ function Dashboard({ date }) {
       <h1 className="d-md-flex justify-content-center">
         Find Your Perfect Reservation Date
       </h1>
+      <ReservationFormat
+        reservations={reservations}
+        setReservations={setReservations}
+        setErrors={setErrors}
+      />
       <div className="d-md-flex mb-3 justify-content-center">
         <h4 className="mb-0">Reservations for {date}</h4>
       </div>
       <div className="pb-3 d-flex justify-content-center">
         <button className="btn btn-primary mr-3" onClick={handlePrevious}>
-          <i class="bi bi-arrow-left-short"></i>Previous
+          <i className="bi bi-arrow-left-short"></i>Previous
         </button>
         <button className="btn btn-primary mr-3" onClick={handleToday}>
           Today
         </button>
         <button className="btn btn-primary mr-3" onClick={handleNext}>
-          Next<i class="bi bi-arrow-right-short"></i>
+          Next<i className="bi bi-arrow-right-short"></i>
         </button>
       </div>
-      <ErrorAlert error={reservationsError} />
-      {JSON.stringify(reservations)}
+      <TableFormat tables={tables} loadDashboard={loadDashboard} />
+      <ErrorAlert error={errors} />
     </main>
   );
 }

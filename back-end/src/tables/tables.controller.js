@@ -11,25 +11,25 @@ async function validTable(req, res, next) {
   const table = req.body.data;
   //If no data is requested
   if (!table) {
-    return next({ status: 400, message: "Must have data property" });
+    return next({ status: 400, message: "Must have data property." });
   }
   //conditionals for each valid (non-nullable field)
   validTables.forEach((field) => {
     if (!table[field]) {
       return next({
         status: 400,
-        message: `table must contain a ${field} property`,
+        message: `table must contain a ${field} property.`,
       });
     }
 
     if (field == "capacity" && typeof table[field] !== "number") {
-      return next({ status: 400, message: `${field} must be a number` });
+      return next({ status: 400, message: `${field} must be a number.` });
     }
 
-    if (field == "table_name" && field.length < 2) {
+    if (table["table_name"].length < 2) {
       return next({
         status: 400,
-        message: `${field} must be at least 2 characters`,
+        message: `${field} must be at least 2 characters.`,
       });
     }
   });

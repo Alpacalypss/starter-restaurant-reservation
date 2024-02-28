@@ -1,16 +1,10 @@
 import React from "react";
-import { useHistory } from "react-router";
 
-function TableSubmit() {
-  const history = useHistory();
-  function handleSubmit() {
-    //Add handlers and initial values to be updated on submit
-    history.push("/dashboard");
-  }
+function TableSubmit({ handleSubmit }) {
   return (
     <div>
       <button className="btn btn-primary" onClick={handleSubmit}>
-        Submit<i class="bi bi-check"></i>
+        <i class="oi oi-pencil mr-2"></i>Create
       </button>
     </div>
   );

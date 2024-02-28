@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router";
-import "./Reservation.css";
 
 export default function ReservationForm({
   initialformData,
@@ -18,9 +17,9 @@ export default function ReservationForm({
       <form onSubmit={handleSubmit} className="form-group">
         <fieldset>
           <legend className="d-flex justify-content-center">
-            Guest Information
+            Reservation Details
           </legend>
-          <div className="pb-1">
+          <div className="pb-2">
             <input
               type="text"
               name="first_name"
@@ -32,7 +31,7 @@ export default function ReservationForm({
               required
             />
           </div>
-          <div className="pb-1">
+          <div className="pb-2">
             <input
               type="text"
               name="last_name"
@@ -44,7 +43,7 @@ export default function ReservationForm({
               required
             />
           </div>
-          <div className="pb-1">
+          <div className="pb-2">
             <input
               type="tel"
               name="mobile_number"
@@ -56,7 +55,7 @@ export default function ReservationForm({
               required
             />
           </div>
-          <div className="pb-1">
+          <div className="pb-2">
             <input
               type="number"
               name="people"
@@ -73,7 +72,7 @@ export default function ReservationForm({
           <input
             type="date"
             name="reservation_date"
-            className="form-control mb-1"
+            className="form-control mb-2"
             id="reservation_date"
             placeholder={initialformData?.reservation_date || "YYY-MM-DD"}
             value={initialformData?.reservation_date}
@@ -97,10 +96,10 @@ export default function ReservationForm({
             className="btn btn-danger mr-2"
             onClick={handleCancel}
           >
-            <i class="bi bi-x"></i>Cancel
+            <i class="oi oi-ban mr-2"></i>Cancel
           </button>
-          <button type="submit" className="btn btn-primary mr-3">
-            Reserve<i class="bi bi-check"></i>
+          <button type="submit" className="btn btn-primary mr-1">
+            <i class="oi oi-pencil mr-2"></i>Reserve
           </button>
         </div>
       </form>
