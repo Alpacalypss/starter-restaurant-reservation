@@ -19,16 +19,16 @@ export default function Reservations() {
 
   const [formData, setFormData] = useState({ ...initialFormData });
 
-  const handleFormChange = (e) => {
+  const handleFormChange = (event) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const controller = new AbortController();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const abortController = new AbortController();
     const errors = [];
     if (errors.length) {
       setReservationsError({ message: errors });
@@ -36,13 +36,13 @@ export default function Reservations() {
     }
     try {
       formData.people = Number(formData.people);
-      await createReservation(formData, controller.signal);
+      await createReservation(formData, abortController.signal);
       const date = formData.reservation_date;
       history.push(`/dashboard?date=${date}`);
     } catch (error) {
       setReservationsError(error);
     }
-    return () => controller.abort();
+    return () => abortController.abort();
   };
 
   return (
