@@ -11,14 +11,14 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <div className="d-flex justify-content-start">
-        <DarkMode />
-      </div>
       <Switch>
         <Route path="/">
           <Layout />
         </Route>
       </Switch>
+      <div className="d-flex justify-content-end">
+        <DarkMode />
+      </div>
     </div>
   );
 }
