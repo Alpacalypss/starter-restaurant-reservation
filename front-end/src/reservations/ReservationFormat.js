@@ -24,6 +24,7 @@ function ReservationFormat({ reservations, setReservations, setError }) {
       setError(error);
     }
   }
+  //declare variable for rows of the table with map w/ unique id as key
   const rows = reservations.map((result) => {
     return (
       <ReservationRow

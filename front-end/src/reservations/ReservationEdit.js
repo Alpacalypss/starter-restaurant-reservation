@@ -29,6 +29,7 @@ export default function ReservationEdit() {
   }, [reservation_id]);
 
   function findErrors(res, errors) {
+    //validate reservation is not outside time parameters
     isNotOnTuesday(res.reservation_date, errors);
     isInTheFuture(res.reservation_date, errors);
     //in-line validation to ensure reservation can be modified
@@ -49,12 +50,15 @@ export default function ReservationEdit() {
       return;
     }
     try {
+      //changes typeof people to a number
       reservationData.people = Number(reservationData.people);
+      //await the modification function w/ params
       await modifyReservation(
         reservation_id,
         reservationData,
         abortController.signal
       );
+      //redirect to the modified date
       history.push(`/dashboard?date=${reservationData.reservation_date}`);
     } catch (error) {
       setError(error);
@@ -62,6 +66,7 @@ export default function ReservationEdit() {
     return () => abortController.abort();
   }
 
+  //function to handle input key strokes and sets data
   function handleFormChange(event) {
     setReservationData({
       ...reservationData,

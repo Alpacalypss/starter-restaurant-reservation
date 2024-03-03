@@ -1,6 +1,7 @@
 import React from "react";
 import TableFinish from "./TableFinish";
 
+//function to give layout and heading of the table, and insert rows
 function TableRows({ table, loadDashboard }) {
   const tableStatus = table.reservation_id ? "Occupied" : "Free";
   return (

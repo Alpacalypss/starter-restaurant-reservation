@@ -4,6 +4,7 @@ import TableRows from "./TableRows";
 function TableFormat({ tables, loadDashboard }) {
   if (!tables) return null;
 
+  //maps rows of tables with unique id as key
   const rows = tables.map((result) => {
     return (
       <TableRows

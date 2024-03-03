@@ -9,14 +9,17 @@ export default function Search() {
   const [mobile, setMobile] = useState("");
   const [error, setError] = useState(null);
 
+  //Sets mobile number to whats input in the search bar
   function changeHandler(event) {
     setMobile(event.target.value);
   }
 
+  //handler for performing the search
   async function searchHandler(event) {
     event.preventDefault();
     const abortController = new AbortController();
     try {
+      //list reservation if a matching number is found from api call
       const reservations = await listReservations(
         { mobile_number: mobile },
         abortController.signal

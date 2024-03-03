@@ -1,12 +1,13 @@
 const tableService = require("./tables.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-/* Middleware Validaters */
+/*********Middleware Validaters*********/
 // Need to validate table name is at least 2 characters and non nullable
 // Need to validate capacity is >= 1 non nullable
-// Validate that table exists
+//Validate that table exists
 const validTables = ["table_name", "capacity"];
 
+//Validate a table has correct properties
 async function validTable(req, res, next) {
   const table = req.body.data;
   //If no data is requested
@@ -21,11 +22,11 @@ async function validTable(req, res, next) {
         message: `table must contain a ${field} property.`,
       });
     }
-
+    //Validation that capacity is a number
     if (field == "capacity" && typeof table[field] !== "number") {
       return next({ status: 400, message: `${field} must be a number.` });
     }
-
+    //Validation the table_name is at least 2 characters (e.g #2)
     if (table["table_name"].length < 2) {
       return next({
         status: 400,
@@ -37,10 +38,12 @@ async function validTable(req, res, next) {
 }
 
 /* CRUD functions */
+//list all tables
 async function list(req, res, next) {
   res.json({ data: await tableService.list() });
 }
 
+//function to create tables and assign reservation_id
 async function create(req, res, next) {
   const table = req.body.data;
   const createdTable = await tableService.create(table);

@@ -1,5 +1,6 @@
 import React from "react";
 
+//function to create layout for table rows
 function ReservationRow({ reservation, cancelRez }) {
   function cancel() {
     return window.confirm(

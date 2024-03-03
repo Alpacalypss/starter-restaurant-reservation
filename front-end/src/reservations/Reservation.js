@@ -19,6 +19,7 @@ export default function Reservations() {
 
   const [formData, setFormData] = useState({ ...initialFormData });
 
+  //function to handle input key strokes and update data
   const handleFormChange = (event) => {
     setFormData({
       ...formData,
@@ -26,6 +27,7 @@ export default function Reservations() {
     });
   };
 
+  //submission function with abort controller
   const handleSubmit = async (event) => {
     event.preventDefault();
     const abortController = new AbortController();
@@ -35,8 +37,11 @@ export default function Reservations() {
       return;
     }
     try {
+      //changes typeof on people to a number
       formData.people = Number(formData.people);
+      //await the creation of a new reservation
       await createReservation(formData, abortController.signal);
+      //sets date to the date of the reservation, and redirects you to that date on the dashboard
       const date = formData.reservation_date;
       history.push(`/dashboard?date=${date}`);
     } catch (error) {

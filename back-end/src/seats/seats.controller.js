@@ -3,7 +3,7 @@ const reservationService = require("../reservations/reservations.service");
 const tableService = require("../tables/tables.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-/* Validation Middleware */
+/*********Middleware Validaters*********/
 
 //Function to check if a table has been given a reservation id
 function tableHasReservationId(req, res, next) {
@@ -19,7 +19,9 @@ function tableHasReservationId(req, res, next) {
   next();
 }
 
+//validation function testing to see if a reservation is already seated
 function isAlreadySeated(req, res, next) {
+  //destructure status variable from reservation
   const { status } = res.locals.reservation;
   if (status == "seated") {
     return next({ status: 400, message: "Reservation is already seated" });
@@ -35,11 +37,12 @@ async function reservationExists(req, res, next) {
   if (!reservation) {
     return next({ status: 404, message: `${reservation_id} does not exist.` });
   }
+  //declare res.locals for use in other functions
   res.locals.reservation = reservation;
   next();
 }
 
-//Function to check if table is valid for a given reservation
+//Validation to check if table is available and fits a given reservation
 async function validTable(req, res, next) {
   const { table_id } = req.params;
   const table = await tableService.read(table_id);
@@ -67,7 +70,7 @@ async function isTableOccupied(req, res, next) {
   const table = await tableService.read(table_id);
   //Does table exist
   if (!table) {
-    return next({ status: 404, message: `${table_id} not found.` });
+    return next({ status: 404, message: `${table_id} was not found.` });
   }
   //Is there currently a reservation at an existing table?
   if (!table.reservation_id) {
@@ -77,18 +80,23 @@ async function isTableOccupied(req, res, next) {
   next();
 }
 
+/******** CRUD FUNCTIONS ********/
 async function update(req, res, next) {
+  //destructure ids from table and reservation
   const { reservation_id } = req.body.data;
   const { table_id } = req.params;
+  //await the update with ids and return it
   await seatService.update(table_id, reservation_id);
   res.status(200).json({ data: reservation_id });
 }
 
+//function to finish a table for the reservation id and open it to be seated again
 async function unassign(req, res, next) {
   const { table_id } = req.params;
   const reservation = await reservationService.finish(
     res.locals.reservation_id
   );
+  //Sets table data to not include reservation id
   const table = await seatService.update(table_id, null);
   res.json({ data: table });
 }

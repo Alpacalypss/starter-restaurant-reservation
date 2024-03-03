@@ -14,6 +14,7 @@ function Table() {
   const [tableError, setTableError] = useState(null);
   const [tableForm, setTableForm] = useState({ ...initialTableData });
 
+  //handles input key strokes on form
   const handleFormChange = (event) => {
     setTableForm({
       ...tableForm,
@@ -21,11 +22,14 @@ function Table() {
     });
   };
 
+  //handles submission of a new table
   async function handleSubmit(event) {
     event.preventDefault();
     const abortController = new AbortController();
     try {
+      //changes typeof capacity to a number
       tableForm.capacity = Number(tableForm.capacity);
+      //awaits table creation api call w/ params. Pushes user to dashboard
       const response = await createTable(tableForm, abortController.signal);
       if (response) {
         history.push("/dashboard");

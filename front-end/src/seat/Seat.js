@@ -11,6 +11,7 @@ export default function Seat() {
   const [seatTable, setSeatTable] = useState(null);
 
   useEffect(() => {
+    //loads tables with api call
     async function loadTables() {
       const abortController = new AbortController();
       setError(null);
@@ -25,15 +26,18 @@ export default function Seat() {
     loadTables();
   }, [reservation_id]);
 
+  //handler for form submission
   async function handleSubmit(event) {
     event.preventDefault();
     const abortController = new AbortController();
     try {
+      //await seat api call w/ params
       const response = await seatReservation(
         seatTable,
         reservation_id,
         abortController.signal
       );
+      //if seated, redirects user to the dashboard page
       if (response) {
         history.push(`/dashboard`);
       }
@@ -43,10 +47,12 @@ export default function Seat() {
     return () => abortController.abort();
   }
 
+  //returns to previous page on cancel
   function handleCancel() {
     history.goBack();
   }
 
+  //sets input for seating
   function handleTableSeat(event) {
     setSeatTable(event.target.value);
   }
