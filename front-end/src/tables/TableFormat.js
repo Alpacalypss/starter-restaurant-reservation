@@ -19,21 +19,11 @@ function TableFormat({ tables, loadDashboard }) {
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th className="table-item" scope="col">
-              ID
-            </th>
-            <th className="table-item" scope="col">
-              Table Number
-            </th>
-            <th className="table-item" scope="col">
-              Capacity
-            </th>
-            <th className="table-item" scope="col">
-              Status
-            </th>
-            <th className="table-item" scope="col">
-              Finish
-            </th>
+            <th scope="col">ID</th>
+            <th scope="col">Table Number</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Finish</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
