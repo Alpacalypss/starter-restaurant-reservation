@@ -4,7 +4,7 @@ import React from "react";
 function ReservationRow({ reservation, cancelRez }) {
   function cancel() {
     return window.confirm(
-      "Are you sure you wish to cancel this reservation? Action cannot be undone."
+      "Do you want to cancel this reservation? This cannot be undone."
     )
       ? cancelRez(reservation)
       : null;

@@ -96,10 +96,10 @@ export default function ReservationForm({
             className="btn btn-danger mr-2"
             onClick={handleCancel}
           >
-            <i class="oi oi-ban mr-2"></i>Cancel
+            <i className="oi oi-ban mr-2"></i>Cancel
           </button>
           <button type="submit" className="btn btn-primary mr-1">
-            <i class="oi oi-pencil mr-2"></i>Reserve
+            <i className="oi oi-pencil mr-2"></i>Reserve
           </button>
         </div>
       </form>

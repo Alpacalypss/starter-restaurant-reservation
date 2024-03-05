@@ -40,7 +40,7 @@ export default function Search() {
       <ErrorAlert error={error} />
       <div className="container">
         <form className="form-group" onSubmit={searchHandler}>
-          <div class="p-2">
+          <div className="p-2">
             <input
               name="mobile_number"
               id="mobile_number"
@@ -51,7 +51,7 @@ export default function Search() {
               required
             />
           </div>
-          <div class="d-flex justify-content-center p-2">
+          <div className="d-flex justify-content-center p-2">
             <button type="submit" className="btn btn-primary">
               <i class="bi bi-search mr-2"></i>
               Find
