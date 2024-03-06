@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 //function to create layout for table rows
 function ReservationRow({ reservation, cancelRez }) {
