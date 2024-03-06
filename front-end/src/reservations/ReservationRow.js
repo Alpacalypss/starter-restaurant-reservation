@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 //function to create layout for table rows
 function ReservationRow({ reservation, cancelRez }) {
@@ -23,23 +24,21 @@ function ReservationRow({ reservation, cancelRez }) {
       </td>
       <td>
         {reservation.status === "booked" ? (
-          <link
+          <a
             className="btn btn-success"
-            role="button"
             href={`/reservations/${reservation.reservation_id}/seat`}
           >
             Seat
-          </link>
+          </a>
         ) : null}
       </td>
       <td>
-        <link
+        <a
           className="btn btn-secondary"
-          role="button"
           href={`/reservations/${reservation.reservation_id}/edit`}
         >
           Edit
-        </link>
+        </a>
       </td>
       <td>
         <button
